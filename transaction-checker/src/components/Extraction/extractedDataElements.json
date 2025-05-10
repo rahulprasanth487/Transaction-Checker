@@ -1,0 +1,104 @@
+{
+  "dataElements": [
+    {
+      "name": "registrationId",
+      "expectedValue": "1234567890",
+      "extractedValue": "",
+      "citations": {
+        "document_name": "",
+        "line_number": "",
+        "page_number": ""
+      }
+    },
+    {
+      "name": "transactionId",
+      "expectedValue": "9876543210",
+      "extractedValue": "",
+      "citations": {
+        "document_name": "",
+        "line_number": "",
+        "page_number": ""
+      }
+    },
+    {
+      "name": "amount",
+      "expectedValue": "10000.00",
+      "extractedValue": "",
+      "citations": {
+        "document_name": "",
+        "line_number": "",
+        "page_number": ""
+      }
+    },
+    {
+      "name": "currency",
+      "expectedValue": "USD",
+      "extractedValue": "",
+      "citations": {
+        "document_name": "",
+        "line_number": "",
+        "page_number": ""
+      }
+    },
+    {
+      "name": "timestamp",
+      "expectedValue": "2023-10-01T12:00:00Z",
+      "extractedValue": "",
+      "citations": {
+        "document_name": "",
+        "line_number": "",
+        "page_number": ""
+      }
+    },
+    {
+      "name": "status",
+      "expectedValue": "completed",
+      "extractedValue": "",
+      "citations": {
+        "document_name": "",
+        "line_number": "",
+        "page_number": ""
+      }
+    },
+    {
+      "name": "description",
+      "expectedValue": "payment method",
+      "extractedValue": "",
+      "citations": {
+        "document_name": "",
+        "line_number": "",
+        "page_number": ""
+      }
+    },
+    {
+      "name": "temp2",
+      "expectedValue": "temp2",
+      "extractedValue": "",
+      "citations": {
+        "document_name": "",
+        "line_number": "",
+        "page_number": ""
+      }
+    },
+    {
+      "name": "temp3",
+      "expectedValue": "temp3",
+      "extractedValue": "",
+      "citations": {
+        "document_name": "",
+        "line_number": "",
+        "page_number": ""
+      }
+    },
+    {
+      "name": "temp4",
+      "expectedValue": "temp4",
+      "extractedValue": "",
+      "citations": {
+        "document_name": "",
+        "line_number": "",
+        "page_number": ""
+      }
+    }
+  ]
+}
