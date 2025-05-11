@@ -71,5 +71,4 @@ def runExtraction():
         
     return e_data['dataElements']
 
-runExtraction()
     
