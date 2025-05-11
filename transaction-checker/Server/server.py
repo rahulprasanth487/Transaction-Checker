@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 import json
 import os
 from Extractor import Extraction
+from Matcher import Matcher
 
 app = Flask(__name__)
 CORS(app)
@@ -28,11 +29,11 @@ def transform_data_for_extraction(data):
             "expectedValue": element["expectedValue"],
             "extractedValue": "",
             "match": "",
-            "citations": {
+            "citations": [{
                 "document_name": "",
                 "line_number": "",
                 "page_number": ""
-            }
+            }]
         }
         transformed_elements.append(transformed_element)
     return transformed_elements
@@ -116,6 +117,24 @@ def serve_file(filename):
         return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
     except Exception as error:
         return jsonify({'success': False, 'error': str(error)}), 404
+    
+    
+@app.route('/api/match', methods=['POST'])
+def match():
+    try:
+        result = Matcher.runMatcher()
+        
+        return jsonify({
+            'success': True,
+            'message': 'Successfully matched data',
+            'matched_data': result
+        })
+
+    except Exception as error:
+        print('Error matching data:', str(error))
+        return jsonify({'success': False, 'error': str(error)}), 500
+    
+    
       
 if __name__ == '__main__':
     app.run(port=PORT)

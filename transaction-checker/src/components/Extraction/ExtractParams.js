@@ -3,11 +3,14 @@ import { LucidePlusSquare } from "lucide-react";
 import DataElementDrawer from "./Drawers/dataElementDrawer";
 import extractedDataElements from "./extractedDataElements.json";
 import "./styles/style.css"
+import ExportDrawer from "./Drawers/exportDataDrawer";
 
 
 const ExtractParams = () => {
     const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
     const [isExtracting, setIsExtracting] = React.useState(false);
+    const [isExporting, setIsExporting] = React.useState(false);
+    const [isExportingDrawer, setIsExportingDrawer] = React.useState(false)
 
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
@@ -55,6 +58,38 @@ const ExtractParams = () => {
         }
     };
 
+    const handleCloseExportDrawer = () => {
+        setIsExportingDrawer(false);
+    }
+
+    const handleExport = async () => {
+        try {
+            setIsExporting(true);
+
+            const response = await fetch('http://localhost:3001/api/match', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: extractedDataElements }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Export failed');
+            }
+
+            const data = await response.json();
+            console.log('Export successful:', data);
+
+        } catch (error) {
+            console.error('Export error:', error);
+        }
+        finally {
+            setIsExporting(false);
+            setIsExportingDrawer(true);
+        }
+    }
+
     return (
         <div className="p-6 h-[85vh] ">
             <div className="flex justify-between items-center mb-2 px-4">
@@ -94,19 +129,21 @@ const ExtractParams = () => {
                                         <td>{element.extractedValue}</td>
                                         <td>{element.expectedValue}</td>
                                         <td>{
-                                            element.citations.document_name && element.citations.page_number
+                                            element.citations[0].document_name && element.citations[0].page_number
                                                 ? <a
-                                                    href={`http://localhost:3001/uploads/${element.citations.document_name}`}
+                                                    href={`http://localhost:3001/uploads/${element.citations[0].document_name}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="text-blue-600 hover:text-blue-800 underline"
                                                 >
-                                                    {element.citations.document_name} (Page {element.citations.page_number}, Line {element.citations.line_number})
+                                                    {element.citations[0].document_name} (Page {element.citations[0].page_number}, Line {element.citations[0].line_number})
                                                 </a>
                                                 : "N/A"
                                         }</td>
                                     </tr>
                                 ))}
+
+                                
 
                             </tbody>
                         </table>
@@ -130,10 +167,10 @@ const ExtractParams = () => {
                         </button>
                     )}
 
-                    {!isExtracting ? (
+                    {!isExporting ? (
                         <button
                             className="bg-gray-900 text-white px-6 py-2 rounded-md hover:bg-white hover:text-black hover:border hover:border-gray-900 transition duration-200"
-                            onClick={handleExtraction}
+                            onClick={handleExport}
                         >
                             Export
                         </button>
@@ -145,6 +182,11 @@ const ExtractParams = () => {
                             Exporting...
                         </button>
                     )}
+
+                    <ExportDrawer 
+                        isOpen={isExportingDrawer}
+                        onClose={handleCloseExportDrawer}
+                    />
                 </div>
             </div>
         </div>

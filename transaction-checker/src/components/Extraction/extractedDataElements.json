@@ -4,23 +4,40 @@
       "name": "Re-pricing fee",
       "expectedValue": "5000",
       "extractedValue": "Upto    5000/-",
-      "match": "",
-      "citations": {
-        "document_name": "loan-agreement-form.pdf",
-        "line_number": "1139",
-        "page_number": "35"
-      }
+      "match": "Match",
+      "citations": [
+        {
+          "document_name": "loan-agreement-form.pdf",
+          "line_number": "1480",
+          "page_number": "35"
+        }
+      ]
     },
     {
       "name": "Phone number",
       "expectedValue": "+91 22 6614 7578",
       "extractedValue": "+91 22 6614 7578",
-      "match": "",
-      "citations": {
-        "document_name": "loan-agreement-form.pdf",
-        "line_number": "882",
-        "page_number": "35"
-      }
+      "match": "Match",
+      "citations": [
+        {
+          "document_name": "loan-agreement-form.pdf",
+          "line_number": "814",
+          "page_number": "35"
+        }
+      ]
+    },
+    {
+      "name": "Average age",
+      "expectedValue": "22",
+      "extractedValue": "22yrs",
+      "match": "Match",
+      "citations": [
+        {
+          "document_name": "Slice.pdf",
+          "line_number": "16",
+          "page_number": "None"
+        }
+      ]
     }
   ]
 }

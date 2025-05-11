@@ -7,6 +7,10 @@
     {
       "name": "Phone number",
       "expectedValue": "+91 22 6614 7578"
+    },
+    {
+      "name": "Average age",
+      "expectedValue": "22"
     }
   ]
 }

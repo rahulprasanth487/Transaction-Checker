@@ -35,7 +35,6 @@ def getExtractedData(element):
 def runExtraction():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     base_path = os.path.abspath(os.path.join(current_dir, '..', '..', 'src', 'components', 'Extraction'))
-    print(f"Base path: {base_path}")
     
     # Load the data elements from the JSON file
     data_elements_path = os.path.join(base_path, 'dataElements.json')
@@ -59,11 +58,11 @@ def runExtraction():
         for element in e_data['dataElements']:
             if element['name'] == extracted_item['name_of_the_data_element']:
                 element['extractedValue'] = extracted_item['extracted_result']
-                element['citations'] = {
+                element['citations'] = [{
                     'document_name': extracted_item['name_of_the_document'],
                     'line_number': str(extracted_item['line_number']),
                     'page_number': str(extracted_item['page_number'])
-                },
+                }]
                 element['match'] = ""
                 
     # Write the updated data back to the JSON file
@@ -71,4 +70,6 @@ def runExtraction():
         json.dump({'dataElements': e_data['dataElements']}, f, indent=2)
         
     return e_data['dataElements']
+
+runExtraction()
     
