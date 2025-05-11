@@ -1,44 +1,12 @@
 {
   "dataElements": [
     {
-      "name": "registrationId",
-      "expectedValue": "1234567890"
+      "name": "Re-pricing fee",
+      "expectedValue": "5000"
     },
     {
-      "name": "transactionId",
-      "expectedValue": "9876543210"
-    },
-    {
-      "name": "amount",
-      "expectedValue": "10000.00"
-    },
-    {
-      "name": "currency",
-      "expectedValue": "USD"
-    },
-    {
-      "name": "timestamp",
-      "expectedValue": "2023-10-01T12:00:00Z"
-    },
-    {
-      "name": "status",
-      "expectedValue": "completed"
-    },
-    {
-      "name": "description",
-      "expectedValue": "payment method"
-    },
-    {
-      "name": "temp2",
-      "expectedValue": "temp2"
-    },
-    {
-      "name": "temp3",
-      "expectedValue": "temp3"
-    },
-    {
-      "name": "temp4",
-      "expectedValue": "temp4"
+      "name": "Phone number",
+      "expectedValue": "+91 22 6614 7578"
     }
   ]
 }

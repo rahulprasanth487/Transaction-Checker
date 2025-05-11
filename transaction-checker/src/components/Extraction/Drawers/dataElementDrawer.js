@@ -1,11 +1,11 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import { LucidePlusSquare } from "lucide-react";
-import dataElementsJson from './dataElements.json';
+import dataElementsJson from '../dataElements.json';
 import { useEffect, useState } from 'react';
 import { LucideEdit3 } from 'lucide-react';
 import { Trash2Icon } from 'lucide-react';
-import { writeToJsonFile } from '../../utils/updatingJSON';
+import { writeToJsonFile } from '../../../utils/updatingJSON';
 
 
 const DataElementDrawer = ({ isOpen, onClose }) => {

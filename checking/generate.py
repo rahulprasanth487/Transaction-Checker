@@ -7,6 +7,7 @@ from google import genai
 from google.genai import types
 from PyPDF2 import PdfReader
 
+
 def extract_text_from_pdf(pdf_path):
     reader = PdfReader(pdf_path)
     text = ""
@@ -17,54 +18,72 @@ def extract_text_from_pdf(pdf_path):
 
 def generate(pdf_path):
     pdf_text = extract_text_from_pdf(pdf_path)
+    pdf_path2 = "./smaple.pdf"
+    pdf_text2 = extract_text_from_pdf(pdf_path2)
+    pdf_path3 = "./Slice.pdf"
+    pdf_text3 = extract_text_from_pdf(pdf_path3)    
     citation = """
         {
-        "name of the element": "name",
-        "document_name": "Sample PDF",
-        "extracted_result": "John doe",
-        "page": 1,
-        "line": 1,
+            "name_of_the_data_element": "single_data_element",
+            "name_of_the_document": "",
+            "line_number": "",
+            "page_number": "",
+            "extracted_result": ""
         }
     """
     prompt = f"""
-    You are a specialized data extraction system for document analysis. You will analyze text extracted from PDF documents and find specific information related to loans.
+    You are a document data extraction specialist. Extract ONE specific data element from multiple PDF documents (provided as text).
 
-INPUT:
-1. Text content already extracted from a PDF document
-2. Document filename for citation purposes
+    TASK:
+    1. Process all provided documents thoroughly
+    2. Extract ONLY the specific data element requested
+    3. Identify the BEST instance of this data element across ALL documents
+    4. Return a single JSON object with proper citation
 
-EXTRACTION TASK:
-Extract the following specific loan-related data elements:
-- loan approver
-- Sanctioned Loan amount
-- loan type
-- Re-pricing Fees
+    DOCUMENTS:
+    [DOCUMENTS_START]
+    [DOCUMENT: {pdf_path}]
+    {pdf_text}
+    [/DOCUMENT]
 
-RESPONSE FORMAT:
-Return ONLY a valid JSON array containing objects with these exact fields:
-- "name of the data element": The name of the requested field (e.g., "loan approver")
-- "name of the document": The filename of the source document
-- "extracted data": The actual extracted information
-- "Page number": The approximate page number where the information appears in the text
-- "line number": The approximate line number where the information appears in the text
+    [DOCUMENT: { pdf_path2}]
+    {pdf_text2}
+    [/DOCUMENT]
+    
+    [DOCUMENT: { pdf_path3}]
+    {pdf_text3}
+    [/DOCUMENT]
 
+    ... additional documents as needed ...
+    [DOCUMENTS_END]
 
-IMPORTANT GUIDELINES:
-- Be precise and extract only the specific information requested
-- Calculate line numbers by counting newline characters
-- If a data element cannot be found, use null for "extracted data" but include the other fields
-- Return ONLY the JSON array without any explanations or additional text
-- Ensure your response is valid JSON that can be parsed programmatically
+    DATA ELEMENT TO EXTRACT:
+    [DATA_ELEMENT]
+    
+    data element = "Re-pricing fee"
+    
+    [/DATA_ELEMENT]
 
-Here is the document text:
-[DOCUMENT_TEXT]
-{pdf_text}
-[/DOCUMENT_TEXT]
+    RESPONSE FORMAT:
+    Return EXACTLY ONE JSON object with this structure:
+    {
+        citation
+    }
 
-Document filename: {pdf_path}
+    IMPORTANT GUIDELINES:
+    - Extract ONLY the ONE specific data element requested
+    - Search through ALL documents and find the BEST instance
+    - Return ONLY ONE result - the clearest, most definitive instance found
+    - If the data element is not found in any document, return "extracted data": null
+    - Calculate line number by counting newline characters
+    - Include the specific document name where the data was found
+    - Return ONLY the JSON object without explanations
+    - Ensure your response is valid, parseable JSON
+
+    Do not explain your reasoning or provide any text outside the JSON object.
     
     """
-    
+
     client = genai.Client(
         api_key="AIzaSyDwxNAwqzTyQFGG6hUlXR9A7i5IGccXvRU",
     )
@@ -88,6 +107,7 @@ Document filename: {pdf_path}
         config=generate_content_config,
     ):
         print(chunk.text, end="")
+
 
 if __name__ == "__main__":
     generate("./loan-agreement-form.pdf")

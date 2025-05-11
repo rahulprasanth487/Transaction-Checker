@@ -1,16 +1,59 @@
 import React from "react";
 import { LucidePlusSquare } from "lucide-react";
-import DataElementDrawer from "./dataElementDrawer";
+import DataElementDrawer from "./Drawers/dataElementDrawer";
 import extractedDataElements from "./extractedDataElements.json";
 import "./styles/style.css"
 
 
 const ExtractParams = () => {
     const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+    const [isExtracting, setIsExtracting] = React.useState(false);
 
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
     }
+
+    const handleExtraction = async () => {
+        try {
+            setIsExtracting(true);
+
+            const uploadedFiles = JSON.parse(sessionStorage.getItem('uploadedFiles'));
+
+            // Create FormData to send files
+            const formData = new FormData();
+
+            // For each file, fetch the blob and append to FormData
+            const filePromises = uploadedFiles.map(async (file) => {
+                const blob = await fetch(file.data).then(r => r.blob());
+                formData.append('files', blob, file.name);
+            });
+
+            // Wait for all blobs to be fetched and appended
+            await Promise.all(filePromises);
+
+            console.log("FormData", formData);
+
+            // Send to backend
+            const response = await fetch('http://localhost:3001/api/extract', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Extraction failed');
+            }
+
+            const data = await response.json();
+            // Handle the extracted data response
+            console.log('Extraction successful:', data);
+
+        } catch (error) {
+            console.error('Extraction error:', error);
+        }
+        finally {
+            setIsExtracting(false);
+        }
+    };
 
     return (
         <div className="p-6 h-[85vh] ">
@@ -50,13 +93,58 @@ const ExtractParams = () => {
                                         <td>{element.name}</td>
                                         <td>{element.extractedValue}</td>
                                         <td>{element.expectedValue}</td>
-                                        <td>{element.citations.document_name}</td>
+                                        <td>{
+                                            element.citations.document_name && element.citations.page_number
+                                                ? <a
+                                                    href={`http://localhost:3001/uploads/${element.citations.document_name}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-blue-600 hover:text-blue-800 underline"
+                                                >
+                                                    {element.citations.document_name} (Page {element.citations.page_number}, Line {element.citations.line_number})
+                                                </a>
+                                                : "N/A"
+                                        }</td>
                                     </tr>
                                 ))}
 
                             </tbody>
                         </table>
                     </div>
+                </div>
+
+                <div className="p-4 flex justify-between">
+                    {!isExtracting ? (
+                        <button
+                            className="bg-gray-900 text-white px-6 py-2 rounded-md hover:bg-white hover:text-black hover:border hover:border-gray-900 transition duration-200"
+                            onClick={handleExtraction}
+                        >
+                            Extract
+                        </button>
+                    ) : (
+                        <button
+                            className="bg-gray-400 text-white px-6 py-2 rounded-md disabled cursor-not-allowed"
+                            disabled
+                        >
+                            Extracting...
+                        </button>
+                    )}
+
+                    {!isExtracting ? (
+                        <button
+                            className="bg-gray-900 text-white px-6 py-2 rounded-md hover:bg-white hover:text-black hover:border hover:border-gray-900 transition duration-200"
+                            onClick={handleExtraction}
+                        >
+                            Export
+                        </button>
+                    ) : (
+                        <button
+                            className="bg-gray-400 text-white px-6 py-2 rounded-md disabled cursor-not-allowed"
+                            disabled
+                        >
+                            Exporting...
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
