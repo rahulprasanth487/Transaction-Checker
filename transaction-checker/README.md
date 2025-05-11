@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+# Transaction Checker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web application built with React and Python Flask for extracting and validating transaction parameters from PDF documents.
+
+## Prerequisites
+
+- Node.js v16 or higher
+- Python 3.8 or higher
+- pip (Python package manager)
+
+## Project Structure
+
+```
+transaction-checker/
+├── src/               # React source files
+│   ├── components/    # React components
+│   ├── pages/        # Page components
+│   └── services/     # API services
+├── Server/           # Flask backend
+│   ├── server.py     # Main server file
+│   └── requirements.txt
+└── public/           # Static assets
+```
+
+## Setup Instructions
+
+### 1. Frontend Setup
+
+First, install the React frontend dependencies:
+
+```bash
+# Install main app dependencies
+cd transaction-checker
+npm install
+
+```
+
+### 2. Backend Setup
+
+Set up the Python Flask backend:
+
+```bash
+cd Server
+
+# Create and activate virtual environment (optional but recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+```
+
+## Running the Application
+
+1. Start the Flask backend server:
+
+```bash
+cd Server
+python server.py
+```
+
+The backend will start on `http://localhost:3001`
+
+2. In a new terminal, start the React frontend:
+
+```bash
+# From the project root
+npm start
+```
+
+The frontend will start on `http://localhost:3000`
+
+## Features
+
+- PDF document upload and preview
+- Data element extraction from PDFs
+- Parameter matching and validation
+- Export results to Excel
+- Landing page showcase
 
 ## Available Scripts
 
-In the project directory, you can run:
+- `npm start` - Run the React development server
+- `npm build` - Create production build
+- `npm test` - Run tests
+- `python server.py` - Run the Flask backend server
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Frontend:
+  - React.js
+  - TailwindCSS
+  - React Router
+  - ExcelJS
+  
+- Backend:
+  - Flask
+  - Google Gemini AI
+  - PyPDF2
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Browser Support
 
-### `npm test`
+- Chrome (latest)
+- Firefox (latest)
+- Edge (latest)
+- Safari (latest)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## License
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This project is proprietary and confidential.
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [React Documentation](https://reactjs.org/)
+- [Flask Documentation](https://flask.palletsprojects.com/)
+- [TailwindCSS Documentation](https://tailwindcss.com/)
