@@ -3,26 +3,26 @@
     {
       "name": "Average age",
       "expectedValue": "22",
-      "extractedValue": "22yrs",
-      "match": "Match",
+      "extractedValue": "",
+      "match": "",
       "citations": [
         {
-          "document_name": "Slice.pdf",
-          "line_number": "16",
-          "page_number": "None"
+          "document_name": "",
+          "line_number": "",
+          "page_number": ""
         }
       ]
     },
     {
       "name": "Re-pricing fee",
       "expectedValue": "5000",
-      "extractedValue": "Upto    5000/-",
-      "match": "Match",
+      "extractedValue": "",
+      "match": "",
       "citations": [
         {
-          "document_name": "loan-agreement-form.pdf",
-          "line_number": "1227",
-          "page_number": "35"
+          "document_name": "",
+          "line_number": "",
+          "page_number": ""
         }
       ]
     }

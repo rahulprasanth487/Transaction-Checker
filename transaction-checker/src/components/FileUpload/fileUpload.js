@@ -7,14 +7,7 @@ const FileUpload = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
 
-    const handleClear = () => {
-        if (window.confirm('Are you sure you want to clear all files?')) {
-            setFiles([]);
-            sessionStorage.removeItem('uploadedFiles');
-        }
-    };
-
-    useEffect(() => {
+    useEffect((event) => {
         const storedFiles = sessionStorage.getItem('uploadedFiles');
         if (storedFiles) {
             setFiles(JSON.parse(storedFiles));
@@ -22,14 +15,29 @@ const FileUpload = () => {
     }, []);
 
     useEffect(() => {
-        window.addEventListener('beforeunload', handleClear);
         return () => {
-          window.removeEventListener('beforeunload', handleClear);
+            // Cleanup function to revoke object URLs when component unmounts
+            files.forEach(file => {
+                if (file.data) {
+                    URL.revokeObjectURL(file.data);
+                }
+            });
         };
-      }, []);
+    }, [files]);
+
 
     const handleFolderUpload = (event) => {
-        const uploadedFiles = Array.from(event.target.files);
+        console.log("FILE UPLOAD CLICKD");
+        event.preventDefault();
+
+        // Revoke previous object URLs
+        files.forEach(file => {
+            if (file.data) {
+                URL.revokeObjectURL(file.data);
+            }
+        });
+
+        const uploadedFiles = Array.from(event.target.files).filter(file => file.type === 'application/pdf');
         const fileDetails = uploadedFiles.map(file => ({
             name: file.name,
             type: file.type,
@@ -82,7 +90,7 @@ const FileUpload = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-center">
 
                     <div className="">
                         <input
@@ -103,13 +111,13 @@ const FileUpload = () => {
                         </label>
                     </div>
 
-                    <button
+                    {/* <button
                         class="bg-red-100 hover:bg-red-400 border border-red-500 text-gray-800 py-2 px-4 rounded inline-flex items-center font-bold"
                         onClick={handleClear}
                     >
                         <Trash className="w-5 h-5 inline-block mr-2" />
                         <span>Clear</span>
-                    </button>
+                    </button> */}
                 </div>
             </div>
 

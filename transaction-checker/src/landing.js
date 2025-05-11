@@ -8,6 +8,10 @@ const LandingPage = () => {
     const navigate = useNavigate();
 
     const handleGetStarted = () => {
+
+        //clear sssession storage
+        sessionStorage.clear();
+
         setIsLoading(true);
         // Simulate loading time (you can remove setTimeout in production)
         setTimeout(() => {
