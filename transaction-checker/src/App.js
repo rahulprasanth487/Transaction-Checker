@@ -9,10 +9,10 @@ const Dashboard = () => (
   <main className="h-[calc(100vh-4rem)]">
     <Navbar />
     <div className="bg-gray-200 p-1 h-full flex flex-row w-full">
-      <div id='file-upload' className="bg-white h-full w-1/4 m-1">
+      <div id='file-upload' className="bg-white h-full w-3/5 m-1">
         <FileUpload />
       </div>
-      <div id='extraction' className="bg-white h-full w-3/4 m-1">
+      <div id='extraction' className="bg-white h-full w-2/5 m-1">
         <ExtractParams />
       </div>
     </div>
